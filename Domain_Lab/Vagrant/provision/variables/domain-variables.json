@@ -1,0 +1,9 @@
+{
+    "name": "nebulatech.local",
+    "fqdn": "nebulatech.local",
+    "netbiosName": "NEBULATECH",
+    "dn": "DC=nebulatech,DC=local",
+    "administratorPassword": "wemustbesmartaboutourpassword1@",
+    "safeModeAdministratorPassword": "wemustbesmartaboutourpassword11@",
+    "dcIPAddress": "10.10.10.100"
+}

@@ -1,0 +1,1 @@
+You can place your win10 and win2019 .iso in this folder and point path in .pkr.hcl file to them
