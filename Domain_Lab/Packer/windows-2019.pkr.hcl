@@ -7,6 +7,15 @@ packer {
   }
 }
 
+packer {
+  required_plugins {
+    vagrant = {
+      source  = "github.com/hashicorp/vagrant"
+      version = "~> 1"
+    }
+  }
+}
+
 variable "disk_size" {
   type    = string
   default = "40960"
@@ -14,16 +23,19 @@ variable "disk_size" {
 
 variable "iso_url" {
   type    = string
-  default = "file:////home/shade/Documents/GoldenLab/Packer/Iso/Winser2019_eval.iso"
-  #Or Download:
-  #default = "https://software-static.download.prss.microsoft.com/sg/download/888969d5-f34g-4e03-ac9d-1f9786c66749/SERVER_EVAL_x64FRE_en-us.iso"
+  default = "https://software-static.download.prss.microsoft.com/dbazure/988969d5-f34g-4e03-ac9d-1f9786c66749/17763.3650.221105-1748.rs5_release_svc_refresh_SERVER_EVAL_x64FRE_en-us.iso"
+  #Or local file path 
+  #default = "file:////home/name/Documents/GoldenLab/Packer/Iso/Win10_eval.iso"
+  
 }
 
 variable "iso_checksum" {
   type    = string
-  default = "sha256:549BCA46C055157291BE6C22A3AAAED8330E78EF4382C99EE82C896426A1CEE1"
   #If downloaded from url:
-  #default = "sha256:3e4fa6d8507b554856fc9ca6079cc402df11a8b79344871669f0251535255325"
+  default = "sha256:6dae072e7f78f4ccab74a45341de0d6e2d45c39be25f1f5920a2ab4f51d7bcbb"
+  #Hash of local iso
+  #default = "sha256:your sha256 hash"
+  
 }
 
 source "virtualbox-iso" "windows-2019-amd64" {

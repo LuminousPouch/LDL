@@ -7,7 +7,7 @@ Inspired by:
 - https://github.com/MWR-CyberSec/tabletop-lab-creation
 
 Before you start:
-- Install: Virtualbox, packer + packer plugin (windows update), vagrant + vagrant plugins(if you are on linux host, some winrm plugins will be required)
+- Install: Virtualbox, packer, vagrant + vagrant plugins (if you are on linux host, some winrm plugins will be required)
 
 - Configure Virtualbox host-only network 10.10.10.0/24 
 
@@ -28,6 +28,15 @@ Before you start:
 	- Change .../Domain_Lab/Vagrant/provision/variables/domain-variables.json
 	- Change .../Domain_Lab/sharedscripts/networking/network-setup-rootdc.ps1
 
+Instalation:
+
+1. packer init windows-2019.pkr.hcl
+2. packer init windows-10-20h2.pkr.hcl
+3. packer build windows-2019.pkr.hcl
+4. packer build windows-10-20h2.pkr.hcl
+5. Define path in vgarantfile for generated .box
+6. vagrant build 11DC11 (Wait untill it will finish seting DC)
+7. vagrant build 22W22 (Build workstation's afterwards)
 
 Active Directory:
 - Domain name: nebulatech.local
@@ -46,7 +55,7 @@ Network Configuration:
 - server_name = "A0043LY19W1" server_ip = "10.10.10.150" 
 - wks_name = "A0043LY19W2" wks_ip = "10.10.10.200"
 
-Packer:
+Packer folder:
 - Iso = Folder for ISO files if you are planning to provide the ISO from the local host.
 	- scripts/floppy = Contains scripts that will be executed on start.
 		- Provision OpenSSH, PSRemoting, PowerShell, WinRM with PowerShell.
@@ -58,7 +67,7 @@ Packer:
 - windows-10-20h2.pkr.hcl = Packer configuration file for Win10 box.
 - windows-2019.pkr.hcl = Packer configuration file for Win2019 box.
 
-Vagrant:
+Vagrant folder:
 - file: For installation packages (EDR agents, AV, some apps, etc.).
 - provision/variables: Some .json files with configurations (Domain variables, domain users, DNS entries).
 - sharedscripts: Scripts that do configuration of the environment.

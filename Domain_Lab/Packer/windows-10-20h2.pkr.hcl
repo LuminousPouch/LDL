@@ -7,6 +7,15 @@ packer {
   }
 }
 
+packer {
+  required_plugins {
+    vagrant = {
+      source  = "github.com/hashicorp/vagrant"
+      version = "~> 1"
+    }
+  }
+}
+
 variable "disk_size" {
   type    = string
   default = "40960"
@@ -18,13 +27,14 @@ variable "iso_url" {
   #Or local file path 
   #default = "file:////home/name/Documents/GoldenLab/Packer/Iso/Win10_eval.iso"
   
-  
 }
 
 variable "iso_checksum" {
   type    = string
+  #If downloaded from web
   default = "sha256:574f00380ead9e4b53921c33bf348b5a2fa976ffad1d5fa20466ddf7f0258964"
-  #default = "sha256:Make sure to add hash of local iso file"
+  #Hash of local iso
+  #default = "sha256:your sha256 hash"
  
 }
   

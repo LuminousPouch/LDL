@@ -16,7 +16,7 @@ Vagrant.configure("2") do |cfg|
 
   #This is a domain controller with standard configuration. It creates a single forest and populates the domain with AD objects like users and groups. It can also create specific GPOs and serve as a DNS server.
   cfg.vm.define "11DC11" do |config|
-    config.vm.box = "/home/user/Documents/Domain_Lab/Packer/win2019.box" # Change path to your packer golden box!!!!!!!!!!!!!!!!
+    config.vm.box = "/home/name/Documents/Domain_Lab/Packer/win2019.box" # Change path to your packer golden box!!!!!!!!!!!!!!!!
     config.vm.hostname = rootdc_name
 
     # Use the plaintext WinRM transport and force it to use basic authentication.
@@ -56,7 +56,7 @@ Vagrant.configure("2") do |cfg|
     config.vm.provision "shell", reboot: true
     
      # Executes files that are based in /file folder. For example, monitoring software or app installation package.
-    #config.vm.provision "shell", path: "sharedscripts/windows/execute-apps.ps1"
+    config.vm.provision "shell", path: "sharedscripts/windows/execute-apps.ps1"
     
     # Create GPO to enable event generation on windows hosts and propagate it to domain
     config.vm.provision "shell", path: "sharedscripts/windows/install-events_gen.ps1" 
@@ -69,9 +69,6 @@ Vagrant.configure("2") do |cfg|
     # Executes files that are based in /file folder. For example, monitoring software or app installation package.
     config.vm.provision "shell", path: "sharedscripts/windows/execute-apps.ps1"
 
-    # TO_DO: Import GPO's?
-    # For example, proper logging of windows events, password policy, etc.
-
     # Reboot so that the scheduled task runs
     config.vm.provision "shell", reboot: true
 
@@ -80,7 +77,7 @@ Vagrant.configure("2") do |cfg|
   # This is a simple server that is domain-joined. It can be used to host various web applications.
   cfg.vm.define "11W11" do |config|
 
-    config.vm.box = "/home/user/Documents/Domain_Lab/Packer/win2019.box" # Change path to your packer golden box!!!!!!!!!!!!!!!!
+    config.vm.box = "/home/name/Documents/Domain_Lab/Packer/win2019.box" # Change path to your packer golden box!!!!!!!!!!!!!!!!
     config.vm.hostname = server_name
 
     # Use the plaintext WinRM transport and force it to use basic authentication.
@@ -106,10 +103,6 @@ Vagrant.configure("2") do |cfg|
     # Run sysprep before joining the domain (needed because the SIDs are identical on Vagrant Cloud images)
     config.vm.provision "windows-sysprep"
 
-    # Install Chocolatey - This can be used to install apps with one-liners.
-    # config.vm.provision "install-choco", type: "shell", path: "sharedscripts/windows/install-choco.ps1"
-    # config.vm.provision "shell", reboot: true
-
     # Configure keyboard/language/timezone, etc.
     config.vm.provision "shell", path: "sharedscripts/ps.ps1", args: "sharedscripts/windows/provision-base.ps1 en-ZA"
     config.vm.provision "shell", reboot: true
@@ -122,6 +115,10 @@ Vagrant.configure("2") do |cfg|
     config.vm.provision "shell", path: "sharedscripts/ps.ps1", args: "sharedscripts/ad/join-domain.ps1 domain-variables.json OU=Servers"
     config.vm.provision "shell", reboot: true
     
+    # Install Chocolatey - This can be used to install apps with one-liners.
+    config.vm.provision "install-choco", type: "shell", path: "sharedscripts/windows/install-choco.ps1"
+    config.vm.provision "shell", reboot: true
+
     # Update GPO
     config.vm.provision "shell", inline:"gpupdate /force"
 
@@ -130,7 +127,7 @@ Vagrant.configure("2") do |cfg|
   end
   
  cfg.vm.define "22W22" do |config|
-    config.vm.box = "/home/user/Documents/Domain_Lab/Packer/win10.box" # Change path to your packer golden box!!!!!!!!!!!!!!!!
+    config.vm.box = "/home/name/Documents/Domain_Lab/Packer/win10.box" # Change path to your packer golden box!!!!!!!!!!!!!!!!
     config.vm.hostname = wks_name
 
     # Use the plaintext WinRM transport and force it to use basic authentication.
@@ -145,7 +142,7 @@ Vagrant.configure("2") do |cfg|
     config.vm.provider :virtualbox do |v, override|
       v.gui = true # Change to false if you don't need GUI 
       v.cpus = 2
-      v.memory = 4096
+      v.memory = 2048
       v.customize ["modifyvm", :id, "--vram", 64]
       v.customize ["modifyvm", :id, "--clipboard-mode", "bidirectional"] #If you need clipboard
     end
@@ -154,7 +151,7 @@ Vagrant.configure("2") do |cfg|
       :ip => wks_ip
 
     # Run sysprep before joining the domain (needed because the SIDs are identical on Vagrant Cloud images)
-    # config.vm.provision "windows-sysprep"
+    config.vm.provision "windows-sysprep"
 
 
     # Configure keyboard/language/timezone, etc.
@@ -169,7 +166,6 @@ Vagrant.configure("2") do |cfg|
     config.vm.provision "shell", path: "sharedscripts/ps.ps1", args: "sharedscripts/ad/join-domain.ps1 domain-variables.json OU=Workstations"
     config.vm.provision "shell", reboot: true
 
-    # TO_DO: Double-check if it is installed correctly
     # Install Atomic on host 
     config.vm.provision "shell", path: "sharedscripts/windows/install-atomic.ps1"
     
@@ -181,9 +177,10 @@ Vagrant.configure("2") do |cfg|
     # config.vm.provision "shell", path: "sharedscripts/windows/soft/install-soft.ps1"
     
     # Executes files that are based in /file folder. For example, monitoring software or app installation package.
-    #config.vm.provision "shell", path: "sharedscripts/windows/execute-apps.ps1"
+    config.vm.provision "shell", path: "sharedscripts/windows/execute-apps.ps1"
     
     # Reboot so that the scheduled task runs
     config.vm.provision "shell", reboot: true
+    
   end
 end
