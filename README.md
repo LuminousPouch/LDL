@@ -28,7 +28,7 @@ Before you start:
 	- Change .../Domain_Lab/Vagrant/provision/variables/domain-variables.json
 	- Change .../Domain_Lab/sharedscripts/networking/network-setup-rootdc.ps1
 
-Instalation:
+Installation:
 
 1. packer init windows-2019.pkr.hcl
 2. packer init windows-10-20h2.pkr.hcl
