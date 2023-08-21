@@ -23,7 +23,7 @@ variable "disk_size" {
 
 variable "iso_url" {
   type    = string
-  default = "https://software-static.download.prss.microsoft.com/dbazure/988969d5-f34g-4e03-ac9d-1f9786c66749/17763.3650.221105-1748.rs5_release_svc_refresh_SERVER_EVAL_x64FRE_en-us.iso"
+  default = "https://software-static.download.prss.microsoft.com/pr/download/17763.737.190906-2324.rs5_release_svc_refresh_SERVER_EVAL_x64FRE_en-us_1.iso"
   #Or local file path 
   #default = "file:////home/name/Documents/GoldenLab/Packer/Iso/Win10_eval.iso"
   
@@ -32,7 +32,7 @@ variable "iso_url" {
 variable "iso_checksum" {
   type    = string
   #If downloaded from url:
-  default = "sha256:6dae072e7f78f4ccab74a45341de0d6e2d45c39be25f1f5920a2ab4f51d7bcbb"
+  default = "sha256:549bca46c055157291be6c22a3aaaed8330e78ef4382c99ee82c896426a1cee1"
   #Hash of local iso
   #default = "sha256:your sha256 hash"
   
